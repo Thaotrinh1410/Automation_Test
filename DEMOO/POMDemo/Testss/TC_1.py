@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.color import Color
 import time
 import unittest
 import sys
@@ -17,42 +18,26 @@ class RegisterTest(unittest.TestCase):
         self.driver.maximize_window()
         self.driver.get("https://demoqa.com/automation-practice-form")
     
-    def test_register(self):
-    
+        
+    def test_case1(self):
+        
         driver = self.driver
-        # driver.get("https://demoqa.com/automation-practice-form")       
+        # driver.get("https://demoqa.com/automation-practice-form")        
         register = RegisterPage(driver)
-        register.enter_firstname("trinh")
+        register.enter_firstname("")       
         register.enter_lastname("ng")
         register.enter_gender()
         register.enter_phone("0123456789")
         register.enter_submit()
-        time.sleep(7)
-        # driver.refresh()
-        
-        
-    # def test_case1(self):
-        
-    #     driver = self.driver
-    #     # driver.get("https://demoqa.com/automation-practice-form")        
-    #     register = RegisterPage(driver)
-    #     register.enter_firstname("")       
-    #     register.enter_lastname("ng")
-    #     register.enter_gender()
-    #     register.enter_phone("0123456789")
-    #     register.enter_submit()
-    #     time.sleep(10)
+        time.sleep(10)
     
+        # title_form = "Thanks for submitting the form"
+        color = driver.find_element(By.ID,"firstName").value_of_css_property('border-color')
+        print(color)
+        hex = Color.from_string(color).hex
+        print(hex)
+
         
-        
-        find_title =driver.find_element(By.XPATH,"//*[@id='example-modal-sizes-title-lg']")
-        find_title = find_title.text
-        title_form = "Thanks for submitting the form"       
-        if (find_title == title_form):
-            print("Pass")           
-        else:
-            print("Fail")
-              
     def tearDown(self):
         self.driver.close()
         self.driver.quit()
@@ -61,10 +46,3 @@ class RegisterTest(unittest.TestCase):
 if __name__ == '__name__':
     unittest.main()
           
-
-
-
-
-
-
-

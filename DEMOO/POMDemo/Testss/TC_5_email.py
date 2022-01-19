@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.color import Color
+import re
 import time
 import unittest
 import sys
@@ -24,24 +25,39 @@ class RegisterTest(unittest.TestCase):
         driver = self.driver
         # driver.get("https://demoqa.com/automation-practice-form")        
         register = RegisterPage(driver)
-        register.enter_firstname("")       
+        firstname = register.enter_firstname("trinh")       
         register.enter_lastname("ng")
+        user = "trinh@gmail.com"
+        register.enter_useremail(user)
+    
         register.enter_gender()
         register.enter_phone("0123456789")
         register.enter_submit()
         time.sleep(10)
     
         # title_form = "Thanks for submitting the form"
-        color = driver.find_element(By.ID,"firstName").value_of_css_property('border-color')
-        print(color)
+        color = driver.find_element(By.ID,"userEmail").value_of_css_property('border-color')       
+        # print(color)
         hex = Color.from_string(color).hex
-        print(hex)       
-        color_fail = "#dc3545"
-        if(hex == color_fail):
-            print(hex+" Testcase pass")
+        print(hex)
+        # color_fail = "#dc3545"
+              
+        
+        email_value = driver.find_element(By.XPATH,"//tbody/tr[2]/td[2]")
+        email = email_value.text
+        print(email)
+               
+        if (user == email):
+            print("That's a valid email")    
         else:
-            print("testcase fail")
+            print("That's an invalid email")
             
+        
+        # if(not useremail)and ():
+        #     print(hex+ " Testcase Pass")
+        # else:
+        #     print("Testcase Fail")
+        
 
         
     def tearDown(self):

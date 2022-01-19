@@ -24,24 +24,23 @@ class RegisterTest(unittest.TestCase):
         driver = self.driver
         # driver.get("https://demoqa.com/automation-practice-form")        
         register = RegisterPage(driver)
-        register.enter_firstname("")       
-        register.enter_lastname("ng")
+        firstname = register.enter_firstname("trinh")       
+        register.enter_lastname("")
         register.enter_gender()
         register.enter_phone("0123456789")
         register.enter_submit()
         time.sleep(10)
     
         # title_form = "Thanks for submitting the form"
-        color = driver.find_element(By.ID,"firstName").value_of_css_property('border-color')
+        color = driver.find_element(By.ID,"lastName").value_of_css_property('border-color')
         print(color)
         hex = Color.from_string(color).hex
-        print(hex)       
+        print(hex)
         color_fail = "#dc3545"
         if(hex == color_fail):
-            print(hex+" Testcase pass")
+            print(hex+ " Testcase Pass")
         else:
-            print("testcase fail")
-            
+            print("Testcase Fail")
 
         
     def tearDown(self):
